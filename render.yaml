@@ -1,0 +1,72 @@
+services:
+  - type: web
+    name: auxray-backend
+    runtime: node
+    rootDir: backend
+    plan: starter
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: TRUST_PROXY
+        value: true
+      - key: DB_SYNC_ENABLED
+        value: false
+      - key: DB_SYNC_FORCE
+        value: false
+      - key: DB_SYNC_ALTER
+        value: false
+      - key: RUN_SEED_ON_START
+        value: false
+      - key: JSON_BODY_LIMIT
+        value: 1mb
+      - key: API_RATE_LIMIT_WINDOW_MS
+        value: 900000
+      - key: API_RATE_LIMIT_MAX
+        value: 300
+      - key: AUTH_RATE_LIMIT_WINDOW_MS
+        value: 900000
+      - key: AUTH_RATE_LIMIT_MAX
+        value: 10
+      - key: CORS_ORIGINS
+        value: https://your-frontend.onrender.com
+      - key: JWT_EXPIRES_IN
+        value: 24h
+      - key: BCRYPT_SALT_ROUNDS
+        value: 12
+      # Set these in Render dashboard as secret values
+      - key: DB_HOST
+        sync: false
+      - key: DB_PORT
+        sync: false
+      - key: DB_USER
+        sync: false
+      - key: DB_PASSWORD
+        sync: false
+      - key: DB_NAME
+        sync: false
+      - key: DB_DIALECT
+        value: mysql
+      - key: DB_SSL
+        value: false
+      - key: DB_SSL_REJECT_UNAUTHORIZED
+        value: false
+      - key: JWT_SECRET
+        sync: false
+
+  - type: static
+    name: auxray-frontend
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    pullRequestPreviewsEnabled: true
+    envVars:
+      - key: VITE_API_BASE_URL
+        value: https://auxray-backend.onrender.com/api
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html

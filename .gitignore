@@ -1,0 +1,33 @@
+# OS/editor
+.DS_Store
+.vscode/
+.idea/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Dependencies
+**/node_modules/
+
+# Build outputs
+frontend/dist/
+auxiliary-mobile-app/android/.gradle/
+auxiliary-mobile-app/android/build/
+auxiliary-mobile-app/android/app/build/
+
+# Runtime uploads
+backend/uploads/
+
+# Local env files
+backend/.env
+backend/.env.*
+!backend/.env.example
+frontend/.env
+frontend/.env.*
+!frontend/.env.example
+auxiliary-mobile-app/.env
+auxiliary-mobile-app/.env.*
+!auxiliary-mobile-app/.env.example
