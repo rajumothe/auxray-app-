@@ -1,7 +1,7 @@
 services:
   - type: web
     name: auxray-backend
-    runtime: node
+    env: node
     rootDir: backend
     plan: starter
     buildCommand: npm install
@@ -57,8 +57,9 @@ services:
       - key: JWT_SECRET
         sync: false
 
-  - type: static
+  - type: web
     name: auxray-frontend
+    env: static
     rootDir: frontend
     buildCommand: npm install && npm run build
     staticPublishPath: dist
